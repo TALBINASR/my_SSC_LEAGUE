@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Projet | TALBI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">TALBI</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="index.html#projets">Projets</a></li>
+        </ul>
+    </nav>
+
+    <div class="doc-layout container" style="margin-top: 50px;">
+        <main class="doc-content">
+            <h1 class="section-title" style="text-align: left;">Documentation Projet</h1>
+
+            <section id="v1">
+                <h2 class="version-header">VERSION 1</h2>
+                <div id="v1-desc" class="doc-section">
+                    <h3>Description du projet</h3>
+                    <p>Texte à remplacer...</p>
+                </div>
+                <div id="v1-but" class="doc-section">
+                    <h3>But du projet</h3>
+                    <p>Texte à remplacer...</p>
+                </div>
+                <div id="v1-meca" class="doc-section">
+                    <h3>Conception Mécanique (CAD, apparence)</h3>
+                    <img src="cad1.png" class="doc-img">
+                </div>
+                <div id="v1-elec" class="doc-section">
+                    <h3>Le circuit électronique</h3>
+                    <img src="elec1.png" class="doc-img">
+                </div>
+                <div id="v1-code" class="doc-section">
+                    <h3>Le code</h3>
+                    <pre><code>// Code V1 ici</code></pre>
+                </div>
+            </section>
+
+            <hr class="doc-sep">
+
+            <section id="v2">
+                <h2 class="version-header">VERSION 2</h2>
+                <div id="v2-desc" class="doc-section">
+                    <h3>Description du projet</h3>
+                    <p>Améliorations apportées...</p>
+                </div>
+                <div id="v2-but" class="doc-section">
+                    <h3>But du projet</h3>
+                </div>
+                <div id="v2-meca" class="doc-section">
+                    <h3>Conception Mécanique</h3>
+                    <img src="cad2.png" class="doc-img">
+                </div>
+                <div id="v2-elec" class="doc-section">
+                    <h3>Le circuit électronique</h3>
+                </div>
+                <div id="v2-code" class="doc-section">
+                    <h3>Le code</h3>
+                </div>
+            </section>
+        </main>
+
+        <aside class="doc-sidebar">
+            <div class="sticky-index">
+                <h4>Index</h4>
+                <ul class="index-list">
+                    <li><strong>VERSION 1</strong>
+                        <ul>
+                            <li><a href="#v1-desc">Description</a></li>
+                            <li><a href="#v1-but">But</a></li>
+                            <li><a href="#v1-meca">Mécanique</a></li>
+                            <li><a href="#v1-elec">Électronique</a></li>
+                            <li><a href="#v1-code">Code</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top:20px"><strong>VERSION 2</strong>
+                        <ul>
+                            <li><a href="#v2-desc">Description</a></li>
+                            <li><a href="#v2-but">But</a></li>
+                            <li><a href="#v2-meca">Mécanique</a></li>
+                            <li><a href="#v2-elec">Électronique</a></li>
+                            <li><a href="#v2-code">Code</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const logo = document.querySelector('.logo');
+        const letters = logo.textContent.split("");
+        logo.innerHTML = letters.map(char => `<span>${char === " " ? "&nbsp;" : char}</span>`).join("");
+        anime({
+            targets: '.logo span',
+            translateY: [{ value: '-1.7rem', easing: 'easeOutExpo', duration: 600 }, { value: 0, easing: 'easeOutBounce', duration: 800, delay: 100 }],
+            rotate: { value: '-1turn', delay: 0 },
+            delay: anime.stagger(50), 
+            easing: 'easeInOutCirc',
+            loop: true
+        });
+    </script>
+</body>
+</html>

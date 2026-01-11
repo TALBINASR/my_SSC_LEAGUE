@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALBI NASR ALLAH | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">TALBI</div>
+        <ul class="nav-links">
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#competitions">Compétitions</a></li>
+            <li><a href="#parcours">Parcours</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>TALBI NASR ALLAH</h1>
+        <p>Élève Ingénieur ENSAM | Mécanique - Électronique - Programmation</p>
+        <a href="#projets" class="btn-main">Découvrir mes projets</a>
+    </header>
+
+    <section id="about" class="container">
+        <h2 class="section-title">À propos de moi</h2>
+        <p class="intro-text">Étudiant en 2ème année à l'ENSAM, je développe des solutions innovantes alliant précision mécanique et intelligence embarquée.</p>
+
+        <div class="about-item">
+            <div class="about-text">
+                <h3>Mécanique & Conception</h3>
+                <p>Spécialisé en conception CAO et analyse de structures. Je transforme des concepts théoriques en prototypes fonctionnels.</p>
+            </div>
+            <div class="about-img"><img src="T1.png" alt="Mécanique"></div>
+        </div>
+
+        <div class="about-item reverse">
+            <div class="about-text">
+                <h3>Électronique & Programmation</h3>
+                <p>Expertise en systèmes embarqués et robotique. J'ai conçu et programmé ce robot hexapode, intégrant la gestion des servomoteurs.</p>
+            </div>
+            <div class="about-img"><img src="T2.png" alt="Robotique"></div>
+        </div>
+
+        <div class="about-item">
+            <div class="about-text">
+                <h3>Ingénierie Automobile</h3>
+                <p>Passionné par la dynamique des véhicules. Je m'implique activement dans le diagnostic et l'optimisation des performances mécaniques.</p>
+            </div>
+            <div class="about-img"><img src="T3.png" alt="Automobile"></div>
+        </div>
+    </section>
+
+    <section id="projets" class="container bg-grey-dark">
+        <h2 class="section-title">Mes Projets Clés</h2>
+        <div class="grid">
+            <a href="projet-detail.html" class="card-link">
+                <div class="card">
+                    <img src="p1.png" alt="Projet 1" class="project-img">
+                    <h3>Projet 01</h3>
+                    <p>Description courte du projet...</p>
+                </div>
+            </a>
+            <a href="projet-detail.html" class="card-link">
+                <div class="card"><img src="p2.png" class="project-img"><h3>Projet 02</h3><p>Description...</p></div>
+            </a>
+            <a href="projet-detail.html" class="card-link">
+                <div class="card"><img src="p3.png" class="project-img"><h3>Projet 03</h3><p>Description...</p></div>
+            </a>
+            <a href="projet-detail.html" class="card-link">
+                <div class="card"><img src="p4.png" class="project-img"><h3>Projet 04</h3><p>Description...</p></div>
+            </a>
+            <a href="projet-detail.html" class="card-link">
+                <div class="card"><img src="p5.png" class="project-img"><h3>Projet 05</h3><p>Description...</p></div>
+            </a>
+            <a href="projet-detail.html" class="card-link">
+                <div class="card"><img src="p6.png" class="project-img"><h3>Projet 06</h3><p>Description...</p></div>
+            </a>
+        </div>
+    </section>
+
+    <section id="competitions" class="container">
+        <h2 class="section-title">Compétitions & Distinctions</h2>
+        <div class="grid">
+            <div class="card highlight">
+                <h3>Vainqueur - Compétition d'Ingénierie</h3>
+                <p>Première place obtenue pour l'innovation technique.</p>
+            </div>
+            <div class="card">
+                <h3>Finaliste National</h3>
+                <p>Participation aux phases finales de robotique.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="parcours" class="container bg-grey-dark">
+        <h2 class="section-title">Mon Parcours</h2>
+        <div class="card">
+            <h3>ENSAM (Arts & Métiers)</h3>
+            <p>Cycle d'ingénieur en cours (2ème année).</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>TALBI NASR ALLAH - 2026 | ENSAM</p>
+    </footer>
+
+    <script>
+        // Animation Logo
+        const logo = document.querySelector('.logo');
+        const letters = logo.textContent.split("");
+        logo.innerHTML = letters.map(char => `<span>${char === " " ? "&nbsp;" : char}</span>`).join("");
+        anime({
+            targets: '.logo span',
+            translateY: [{ value: '-1.7rem', easing: 'easeOutExpo', duration: 600 }, { value: 0, easing: 'easeOutBounce', duration: 800, delay: 100 }],
+            rotate: { value: '-1turn', delay: 0 },
+            delay: anime.stagger(50), 
+            easing: 'easeInOutCirc',
+            loop: true
+        });
+    </script>
+</body>
+</html>
