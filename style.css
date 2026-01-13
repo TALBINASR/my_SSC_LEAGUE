@@ -69,7 +69,46 @@ body {
 .doc-layout { display: flex; gap: 40px; }
 .doc-content { flex: 3; }
 .doc-sidebar { flex: 1; position: relative; }
-.sticky-index { position: sticky; top: 100px; background: #333; padding: 20px; border-radius: 10px; }
+.sticky-index {
+    position: sticky;
+    top: 100px;
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #444;
+    color: #ccc;
+    font-size: 0.9rem;
+    max-width: 300px;
+}
+
+.sticky-index h3 {
+    color: var(--primary-orange);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sticky-index ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sticky-index li {
+    margin-bottom: 10px;
+}
+
+.sticky-index a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.sticky-index a:hover {
+    color: var(--primary-orange);
+}
 .index-list ul { list-style: none; padding-left: 15px; }
 .index-list a { color: #ccc; text-decoration: none; font-size: 0.9rem; }
 .index-list a:hover { color: var(--primary-orange); }
@@ -79,3 +118,149 @@ body {
 .doc-sep { border: 0; height: 1px; background: #555; margin: 50px 0; }
 
 footer { text-align: center; padding: 50px; background: #1a1a1a; }
+/* --- ADAPTATION MOBILE --- */
+@media (max-width: 768px) {
+    /* On empile les éléments au lieu de les mettre côte à côte */
+    .about-item, .about-item.reverse {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .doc-layout {
+        flex-direction: column;
+    }
+
+    /* On cache l'index latéral sur mobile ou on le met en haut */
+    .doc-sidebar {
+        order: -1; /* Place l'index au-dessus du texte */
+    }
+
+    .nav-links {
+        display: none; /* Cache le menu classique pour le remplacer plus tard par un menu burger */
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        padding: 50px 5%; /* Moins de marge sur les côtés */
+    }
+
+    /* Style du bouton Burger (les 3 barres) */
+    .burger {
+        display: block;
+        cursor: pointer;
+        z-index: 1100;
+    }
+
+    .burger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+    /* Transformation du menu en liste verticale cachée */
+    .nav-links {
+        position: fixed;
+        right: -100%; /* Caché à droite */
+        top: 0;
+        height: 100vh;
+        width: 50%;
+        background: #1a1a1a;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: UP;
+        transition: 0.5s;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    }
+    .nav-footer {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        font-size: 0.9rem;
+        color: #777;
+        content: "© 2024 MonSite. Tous droits réservés.";
+    }
+
+    /* Classe qui sera ajoutée par le JavaScript pour ouvrir le menu */
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links li {
+        margin: 20px 0;
+    }
+    /* Animation des barres pour former un X */
+.burger.toggle span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.burger.toggle span:nth-child(2) {
+    opacity: 0; /* La barre du milieu disparaît */
+}
+
+.burger.toggle span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+}
+
+/* Cacher le burger sur ordinateur */
+@media (min-width: 769px) {
+    .burger { display: none; }
+}
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-orange);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: none; /* Caché par défaut */
+    z-index: 1000;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.back-to-top:hover {
+    transform: scale(1.1);
+    background-color: #e66000; /* Orange un peu plus sombre au survol */
+}
+
+/* Sur mobile, on le fait un peu plus petit */
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+.photo-gallery {
+    display: grid;
+    /* For 3 columns: use repeat(3, 1fr). For 2 columns: use repeat(2, 1fr) */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+    width: 100%;
+    max-width: 800px; /* Increased this so images aren't too tiny */
+    margin: 20px 0;
+}
+
+.doc-img {
+    width: 100%;        /* Makes image fill the grid cell width */
+    height: 200px;      /* Set a fixed height for uniformity */
+    object-fit: cover;  /* Crops image to fit the box without stretching */
+    border-radius: 8px;
+    border: 2px solid #ff8c00; /* Your primary orange */
+}

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R-LINE SERIES DOCUMENTATION  | TALBI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">TALBI</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="index.html#projets">Projets</a></li>
+        </ul>
+    </nav>
+
+    <div class="doc-layout container" style="margin-top: 50px;">
+        <main class="doc-content">
+            <h1 class="section-title" style="text-align: left;">R-LINE SERIES DOCUMENTATION</h1>
+            <h3 id="v1-desc" class="doc-section">the ultimate car line</h1>
+            <img src="U1.png" alt="R-Line Series Photo" class="doc-img">
+
+            <section id="v1">
+                <h2 class="version-header">R-LINE1</h2>
+                <div >
+                    <h3 class="section-title">Description du projet</h3>
+                    <p>
+                        Le prototype R-LINE1 basé sur mon système AI DRIVE est une solution de rétrofit d'aide à la conduite (ADAS) basée sur une architecture distribuée, combinant vision par ordinateur, intelligence artificielle et contrôle embarqué.
+                    </p>
+
+                    <h4>1. Architecture Système (Hardware)</h4>
+                    <ul>
+                        <li><strong>Unité de Perception (Caméra)</strong> :
+                            <ul>
+                                <li>Composant : ESP32-CAM.</li>
+                                <li>Rôle : Capture du flux vidéo en temps réel (320x240 @ 20fps).</li>
+                                <li>Protocole : Stream HTTP vers l'unité de traitement.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Unité de Traitement Central (Cerveau)</strong> :
+                            <ul>
+                                <li>Composant : PC portable (ou unité Jetson Nano prévue pour la phase 2).</li>
+                                <li>Algorithmes :
+                                    <ul>
+                                        <li>Vision Classique (OpenCV) : Transformation de perspective (Bird's Eye View), filtrage HSV pour la détection de lignes, et calcul d'offset par histogramme.</li>
+                                        <li>Intelligence Artificielle (YOLOv8) : Modèle personnalisé entraîné pour détecter la signalisation routière (Stop, limites de vitesse, passages piétons).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div style="display: flex; align-items: flex-start;">
+                                <div>
+                                    <strong>Unité de Contrôle Actionneur (Corps)</strong> :
+                                    <ul>
+                                        <li>Composant : ESP32 (Standard).</li>
+                                        <li>Interface : Client Socket TCP.</li>
+                                        <li>Rôle : Reçoit les commandes JSON (Angle de direction et Throttle) et pilote les servomoteurs/moteurs du véhicule.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                            <ul  >
+                                <li>
+                                    Composant : ESP32 (Standard).
+                                    
+                                </li>
+                                <li>Interface : Client Socket TCP.</li>
+                                <li>Rôle : Reçoit les commandes JSON (Angle de direction et Throttle) et pilote les servomoteurs/moteurs du véhicule.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h4>2. Pipeline de Traitement de l'Information (Software)</h4>
+                    <p>
+                        Le cycle de décision suit un processus en quatre étapes :
+                    </p>
+                    <ol>
+                        <li><strong>Prétraitement</strong> : L'image brute subit une transformation de perspective pour obtenir une vue "du dessus" de la route, permettant une mesure précise de la déviation du véhicule par rapport au centre de la voie.</li>
+                        <li><strong>Analyse de Ligne (Asservissement)</strong> :
+                            <ul>
+                                <li>Filtrage des pixels (Masquage HSV).</li>
+                                <li>Calcul de l'erreur de trajectoire (Offset).</li>
+                                <li>Application d'un Correcteur Proportionnel (P) : <span class="math">$$Angle = K_p \times Offset$$</span>.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Analyse de Signalisation (IA)</strong> : En parallèle, l'algorithme YOLO analyse les images pour identifier les panneaux. En cas de détection d'un panneau "Stop" avec une surface (Area) supérieure au seuil de sécurité, une commande de freinage d'urgence prévaut sur le suivi de ligne.</li>
+                        <li><strong>Transmission</strong> : Les données sont encapsulées en JSON : {"A": angle, "T": throttle} et envoyées via Wi-Fi à l'ESP32 de contrôle avec une latence optimisée.</li>
+                    </ol>
+
+                    <h4>3. Spécifications du Logiciel</h4>
+                    <ul>
+                        <li>Langage : Python 3.x.</li>
+                        <li>Bibliothèques clés :
+                            <ul>
+                                <li>OpenCV : Traitement d'image et interface de débogage.</li>
+                                <li>Ultralytics (YOLOv8) : Inférence du modèle de détection.</li>
+                                <li>NumPy : Calculs matriciels rapides.</li>
+                                <li>Socket : Communication basse latence entre PC et microcontrôleurs.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h4>4. Innovations et Optimisations du Prototype</h4>
+                    <ul>
+                        <li><strong>Frame Skipping intelligent</strong> : Le suivi de ligne (critique) s'exécute sur chaque image, tandis que la détection d'objets (plus lourde) s'exécute toutes les n images pour maintenir un FPS élevé.</li>
+                        <li><strong>Mode Hybride</strong> : Possibilité de basculer instantanément entre le mode autonome et le contrôle manuel par clavier pour la reprise en main d'urgence.</li>
+                        <li><strong>Calibration Dynamique</strong> : Utilisation de barres de réglage (Trackbars) en temps réel pour adapter les seuils de détection aux variations de luminosité ambiante.</li>
+                    </ul>
+                    <img src="R1.png" alt="ESP32" style=" border-radius: 10px; border: 2px solid var(--primary-orange); ">
+                </div>
+                <div id="v1-but" class="doc-section">
+                    <h3 class="section-title">But du projet</h3>
+                    <p>
+                        En tant qu'élève ingénieur, ma démarche avec le projet R-LINE1 dépasse la simple conception d'un prototype technologique ; 
+                        elle s'inscrit dans une volonté de démocratiser la sécurité routière par l'innovation logicielle. 
+                    </p>
+                    <p>
+                        Le but fondamental de ce projet est de concevoir un système d'assistance à la conduite (ADAS) intelligent, 
+                        capable de s'adapter aux infrastructures routières complexes et changeantes, comme celles que nous rencontrons au Maroc. 
+                    </p>
+                    <p>
+                        En exploitant la puissance de la vision par ordinateur et de l'intelligence artificielle (YOLOv8), 
+                        nous visons à réduire l'erreur humaine — cause de plus de 90 % des accidents — en proposant une solution de rétrofit économiquement accessible. 
+                    </p>
+                    <p>
+                        Ce projet constitue une preuve de concept rigoureuse démontrant que l'ingénierie peut transformer des véhicules conventionnels 
+                        en entités semi-autonomes sécurisées, posant ainsi les jalons d'une mobilité intelligente, inclusive et durable.
+                    </p>
+                    
+                </div>
+                <div id="v1-meca" class="doc-section">
+                    <h3 class="section-title">Conception Mécanique (CAD, apparence)</h3>
+
+                    <div class="photo-gallery">
+                        <img src="R-LINE/cad1.png" class="doc-img" alt="CAD Design 1">
+                        <img src="R-LINE/cad2.png" class="doc-img" alt="CAD Design 2">
+                        <img src="R-LINE/cad3.png" class="doc-img" alt="CAD Design 3">
+                        <img src="R-LINE/cad4.png" class="doc-img" alt="CAD Design 4">
+                        <img src="R-LINE/cad5.png" class="doc-img" alt="CAD Design 5">
+                        <img src="R-LINE/cad6.png" class="doc-img" alt="CAD Design 6">
+                        <div class="doc-container">
+                            <h2 class="doc-title">Conception mécanique du prototype</h2>
+                            
+                            <p>La conception mécanique du prototype a été pensée pour offrir une base de test agile et fidèle aux lois de comportement d’un véhicule réel. L'objectif était de créer une plateforme robotique capable de simuler avec précision le contrôle de mouvement pour le développement de nos modèles d'IA et de futures fonctionnalités, telles que le <strong>stationnement autonome</strong>.</p>
+                        
+                            <h3>1. Architecture Cinématique et CAO</h3>
+                            <p>Le design a été entièrement modélisé à l'aide des logiciels <strong>SolidWorks</strong> et <strong>Onshape</strong>. L'architecture retenue repose sur deux piliers :</p>
+                            <ul>
+                                <li><strong>Propulsion :</strong> Assurée par un moteur à courant continu (DC), permettant de simuler l'accélération et la vitesse de croisière.</li>
+                                <li><strong>Direction :</strong> L’angle de braquage est piloté par un servomoteur, garantissant un contrôle angulaire précis et reproductible, indispensable pour valider les trajectoires calculées par l'algorithme de vision.</li>
+                            </ul>
+                        
+                            <h3>2. Fabrication par Impression 3D</h3>
+                            <p>Conformément à l'esprit "Maker" de l'ingénieur, la fabrication du châssis et des composants structurels a été réalisée par impression 3D (FDM) au sein du <strong>Club Mécanique Arts & Métiers de l'ENSAM</strong>. Ce choix technologique a permis :</p>
+                            <ul>
+                                <li>Une réduction significative de la masse globale du prototype.</li>
+                                <li>Une grande flexibilité pour l'intégration des supports de capteurs (caméras, ultrasons).</li>
+                                <li>Un prototypage rapide favorisant les cycles de test-correction sur le terrain.</li>
+                            </ul>
+                        
+                            <p>Cette plateforme, bien que structurellement simple, respecte les principes dynamiques essentiels, offrant ainsi un environnement de simulation physique réaliste pour l'entraînement et le déploiement de notre intelligence artificielle.</p>
+                        </div>
+                    </div>
+                <div id="v1-elec" class="doc-section">
+                    <h3 class="section-title">Le circuit électronique</h3>
+                    <img src="elec1.png" class="doc-img">
+                </div>
+                <div id="v1-code" class="doc-section">
+                    <h3 class="section-title">Le code</h3>
+                    <pre><code>// Code V1 ici</code></pre>
+                </div>
+            </section>
+
+            <hr class="doc-sep">
+
+            <section id="v2">
+                <h2 class="version-header">R-LINE2</h2>
+                <div id="v2-desc" class="doc-section">
+                    <h3>Description du projet</h3>
+                    <p>Améliorations apportées...</p>
+                </div>
+                <div id="v2-but" class="doc-section">
+                    <h3>But du projet</h3>
+                </div>
+                <div id="v2-meca" class="doc-section">
+                    <h3>Conception Mécanique</h3>
+                    <img src="cad2.png" class="doc-img">
+                </div>
+                <div id="v2-elec" class="doc-section">
+                    <h3>Le circuit électronique</h3>
+                </div>
+                <div id="v2-code" class="doc-section">
+                    <h3>Le code</h3>
+                </div>
+            </section>
+        </main>
+
+        <aside class="doc-sidebar">
+            <div class="sticky-index">
+                <h4>Index</h4>
+                <ul class="index-list">
+                    <li><strong>VERSION 1</strong>
+                        <ul>
+                            <li><a href="#v1-desc">Description</a></li>
+                            <li><a href="#v1-but">But</a></li>
+                            <li><a href="#v1-meca">Mécanique</a></li>
+                            <li><a href="#v1-elec">Électronique</a></li>
+                            <li><a href="#v1-code">Code</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top:20px"><strong>VERSION 2</strong>
+                        <ul>
+                            <li><a href="#v2-desc">Description</a></li>
+                            <li><a href="#v2-but">But</a></li>
+                            <li><a href="#v2-meca">Mécanique</a></li>
+                            <li><a href="#v2-elec">Électronique</a></li>
+                            <li><a href="#v2-code">Code</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const logo = document.querySelector('.logo');
+        const letters = logo.textContent.split("");
+        logo.innerHTML = letters.map(char => `<span>${char === " " ? "&nbsp;" : char}</span>`).join("");
+        anime({
+            targets: '.logo span',
+            translateY: [{ value: '-1.7rem', easing: 'easeOutExpo', duration: 600 }, { value: 0, easing: 'easeOutBounce', duration: 800, delay: 100 }],
+            rotate: { value: '-1turn', delay: 0 },
+            delay: anime.stagger(50), 
+            easing: 'easeInOutCirc',
+            loop: true
+        });
+    </script>
+    <script>
+        // On crée un observateur pour déclencher l'animation quand on arrive à la section Projets
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            anime({
+                targets: '.card',
+                translateY: [100, 0],
+                opacity: [0, 1],
+                delay: anime.stagger(150), // 150ms entre chaque carte
+                easing: 'easeOutExpo',
+                duration: 1200
+            });
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+
+observer.observe(document.querySelector('#projets'));
+    </script>
+</body>
+</html>
