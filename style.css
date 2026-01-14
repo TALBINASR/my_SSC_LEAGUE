@@ -297,7 +297,7 @@ body {
         position: fixed;
         right: -100%;
         top: 0;
-        height: 100vh;
+        height: 100%;
         width: 75%;
         background: #1a1a1a;
         flex-direction: column;
@@ -351,7 +351,34 @@ body {
         max-width: 100%;
         height: auto;
     }
+    .doc-sidebar {
+        display: none; 
+    }
+
+    /* Afficher l'index à l'intérieur du menu burger quand il est actif */
+    .nav-links.active .doc-sidebar {
+        display: block;
+        width: 100%;
+        height: 80%;
+        margin-top: 1px;
+        padding: 0 20px;
+    }
+
+    /* Ajustement de l'index pour qu'il soit beau dans le menu */
+    .nav-links.active .sticky-index {
+        background: transparent;
+        border-left: 2px solid var(--primary-orange);
+        box-shadow: none;
+        position: static;
+    }
+
+    .nav-links.active .index-list a {
+        font-size: 1.1rem; /* Plus lisible sur mobile */
+        display: block;
+        padding: 0px 0;
+    }
 }
+
 
 /* Fix spécifique pour le Hero sur mobile */
 @media (max-width: 600px) {
@@ -591,4 +618,14 @@ body {
         flex-direction: column;
         gap: 15px;
     }
+}
+.version-header {
+    font-size: 2rem;
+    color: var(--primary-orange);
+    margin-bottom: 10px;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-color: var(--primary-orange);
+    
+    text-decoration-thickness: 5px;
 }
