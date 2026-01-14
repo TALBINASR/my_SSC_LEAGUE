@@ -639,7 +639,18 @@
                                     <span>DRIVE_AI_R-LINE1.py</span>
                                     <button class="copy-btn">Copier</button>
                                 </div>
-                                <pre><code>import cv2
+                                <pre><code>
+                                    /*
+                                    +------------------------------------------------------------------------------+
+                                    | R-LINE1 AI DRIVE CODE | DRIVE AI SYSTEM                               |
+                                    | Author: Talbi Nasr Allah                                                     |
+                                    | Created: 19/12/2025                                                          |
+                                    | ____________________________________________________________________________ |
+                                    |                                                                              |
+                                    | ALL RIGHTS RESERVED © 2025                                                   |
+                                    +------------------------------------------------------------------------------+
+                                    */
+                                    import cv2
                                     import numpy as np
                                     import time
                                     import socket
@@ -1053,23 +1064,105 @@
 
             <section id="v2">
                 <h2 class="version-header">R-LINE2</h2>
-                <div id="v2-desc" class="doc-section">
-                    <h3>Description du projet</h3>
-                    <p>Améliorations apportées...</p>
+                <div >
+                    <h3 class="section-title">Description du projet</h3>
+                    <p>
+                        Conception complète et optimisation technique d'un véhicule télécommandé à l'échelle, axée sur la performance dynamique et la fabricabilité par impression 3D. Ce projet combine ingénierie mécanique assistée par ordinateur (<strong>CAO</strong>), dynamique des fluides (<strong>CFD</strong>) et <strong>mécatronique</strong>.
+                    </p>
+                
+                    <hr>
+                
+                    <h3>Spécifications Techniques</h3>
+                
+                    <div>
+                        <h4>1. Chaîne Cinématique & Propulsion (4x4 Powertrain)</h4>
+                        <ul>
+                            <li><strong>Transmission Intégrale (AWD) :</strong> Système de transmission aux quatre roues pour une motricité optimale.</li>
+                            <li><strong>Motorisation :</strong> Double motorisation DC couplée, offrant un couple élevé et une réponse rapide.</li>
+                            <li><strong>Différentiel Arrière :</strong> Conception d'un différentiel à pignons coniques fonctionnel pour améliorer la tenue de route en virage et réduire l'usure des pneumatiques.</li>
+                            <li><strong>Réduction Mécanique :</strong> Système d'engrenages optimisé pour équilibrer la vitesse de pointe et le couple de démarrage.</li>
+                        </ul>
+                    </div>
+                
+                    <div>
+                        <h4>2. Direction & Maniabilité</h4>
+                        <ul>
+                            <li><strong>Servo-Direction :</strong> Intégration d'un servomoteur pour un contrôle précis de l'angle de braquage.</li>
+                            <li><strong>Géométrie de Direction :</strong> Conception basée sur le principe d'Ackermann pour assurer un roulement parfait sans glissement latéral des roues avant lors des virages.</li>
+                        </ul>
+                    </div>
+                
+                    <div>
+                        <h4>3. Conception Dynamique & Aérodynamisme</h4>
+                        <ul>
+                            <li><strong>Châssis Optimisé :</strong> Structure rigide accueillant une batterie LiPo 3S (11.1V), avec une répartition des masses centrée pour une meilleure stabilité.</li>
+                            <li><strong>Étude CFD (Computational Fluid Dynamics) :</strong> Analyse des flux d'air sur la carrosserie pour minimiser le coefficient de traînée (C<sub>x</sub>) et maximiser l'appui aérodynamique (Downforce) via l'aileron arrière et le diffuseur frontal.</li>
+                            <li><strong>Design R-LINE :</strong> Carrosserie aérodynamique avec prises d'air fonctionnelles pour le refroidissement des composants internes.</li>
+                        </ul>
+                    </div>
+                
+                    <div>
+                        <h4>4. Conception pour la Fabrication (DfAM)</h4>
+                        <ul>
+                            <li><strong>Outils CAO :</strong> Utilisation experte de SolidWorks et Onshape pour la modélisation paramétrique et l'assemblage (plus de 50 composants uniques).</li>
+                            <li><strong>Préparation Impression 3D :</strong> Optimisation des tolérances mécaniques pour l'assemblage (ajustements serrés/glissants) et orientation des pièces pour maximiser la résistance structurelle des couches.</li>
+                        </ul>
+                    </div>
+                <div id="v1-but" class="doc-section">
+                    <h3 class="section-title">But du projet</h3>
+                    <p>
+                        En tant qu'élève ingénieur, ma démarche avec le projet R-LINE1 dépasse la simple conception d'un prototype technologique ; 
+                        elle s'inscrit dans une volonté de démocratiser la sécurité routière par l'innovation logicielle. 
+                    </p>
+                    <p>
+                        Le but fondamental de ce projet est de concevoir un système d'assistance à la conduite (ADAS) intelligent, 
+                        capable de s'adapter aux infrastructures routières complexes et changeantes, comme celles que nous rencontrons au Maroc. 
+                    </p>
+                    <p>
+                        En exploitant la puissance de la vision par ordinateur et de l'intelligence artificielle (YOLOv8), 
+                        nous visons à réduire l'erreur humaine — cause de plus de 90 % des accidents — en proposant une solution de rétrofit économiquement accessible. 
+                    </p>
+                    <p>
+                        Ce projet constitue une preuve de concept rigoureuse démontrant que l'ingénierie peut transformer des véhicules conventionnels 
+                        en entités semi-autonomes sécurisées, posant ainsi les jalons d'une mobilité intelligente, inclusive et durable.
+                    </p>
+                    
                 </div>
-                <div id="v2-but" class="doc-section">
-                    <h3>But du projet</h3>
-                </div>
-                <div id="v2-meca" class="doc-section">
-                    <h3>Conception Mécanique</h3>
-                    <img src="cad2.png" class="doc-img">
-                </div>
-                <div id="v2-elec" class="doc-section">
-                    <h3>Le circuit électronique</h3>
-                </div>
-                <div id="v2-code" class="doc-section">
-                    <h3>Le code</h3>
-                </div>
+                <div id="v1-meca" class="doc-section">
+                    <h3 class="section-title">Conception Mécanique (CAD, apparence)</h3>
+
+                    <div class="photo-gallery">
+                        <img src="R-LINE/cad1.png" class="doc-img" alt="CAD Design 1">
+                        <img src="R-LINE/cad2.png" class="doc-img" alt="CAD Design 2">
+                        <img src="R-LINE/cad3.png" class="doc-img" alt="CAD Design 3">
+                        <img src="R-LINE/cad4.png" class="doc-img" alt="CAD Design 4">
+                        <img src="R-LINE/cad5.png" class="doc-img" alt="CAD Design 5">
+                        <img src="R-LINE/cad6.png" class="doc-img" alt="CAD Design 6">
+                    </div>
+                        <div class="doc-container">
+                            <h2 class="doc-title">Conception mécanique du prototype</h2>
+                            
+                            <p>La conception mécanique du prototype a été pensée pour offrir une base de test agile et fidèle aux lois de comportement d’un véhicule réel. L'objectif était de créer une plateforme robotique capable de simuler avec précision le contrôle de mouvement pour le développement de nos modèles d'IA et de futures fonctionnalités, telles que le <strong>stationnement autonome</strong>.</p>
+                        
+                            <h3>1. Architecture Cinématique et CAO</h3>
+                            <p>Le design a été entièrement modélisé à l'aide des logiciels <strong>SolidWorks</strong> et <strong>Onshape</strong>. L'architecture retenue repose sur deux piliers :</p>
+                            <ul>
+                                <li><strong>Propulsion :</strong> Assurée par un moteur à courant continu (DC), permettant de simuler l'accélération et la vitesse de croisière.</li>
+                                <li><strong>Direction :</strong> L’angle de braquage est piloté par un servomoteur, garantissant un contrôle angulaire précis et reproductible, indispensable pour valider les trajectoires calculées par l'algorithme de vision.</li>
+                            </ul>
+                        
+                            <h3>2. Fabrication par Impression 3D</h3>
+                            <p>Conformément à l'esprit "Maker" de l'ingénieur, la fabrication du châssis et des composants structurels a été réalisée par impression 3D (FDM) au sein du <strong>Club Mécanique Arts & Métiers de l'ENSAM</strong>. Ce choix technologique a permis :</p>
+                            <ul>
+                                <li>Une réduction significative de la masse globale du prototype.</li>
+                                <li>Une grande flexibilité pour l'intégration des supports de capteurs (caméras, ultrasons).</li>
+                                <li>Un prototypage rapide favorisant les cycles de test-correction sur le terrain.</li>
+                            </ul>
+                        
+                            <p>Cette plateforme, bien que structurellement simple, respecte les principes dynamiques essentiels, offrant ainsi un environnement de simulation physique réaliste pour l'entraînement et le déploiement de notre intelligence artificielle.</p>
+                        </div>
+                    </div>
+                
             </section>
         </main>
 
@@ -1099,7 +1192,34 @@
             </div>
         </aside>
     </div>
-
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                TALBI <span>NASR ALLAH</span>
+            </div>
+            <p class="footer-tagline">Élève Ingénieur ENSAM | Spécialiste en Systèmes Embarqués & Mécanique</p>
+            
+            <div class="footer-socials">
+                <a href="https://www.linkedin.com/in/nasr-allah-talbi-77899232b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com/TALBINASR" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://www.instagram.com/talbinassr?igsh=MWhtdDB4emsya2Mxdg==" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="talbynassro@email.com" title="Email">
+                    <i class="fas fa-envelope"></i> talbynassro@email.com
+                </a>
+            </div>
+    
+            <div class="footer-bottom">
+                <p>&copy; 2026 TALBI NASR ALLAH. Tous droits réservés.</p>
+                <p>ENSAM - Arts & Métiers</p>
+            </div>
+        </div>
+    </footer>
     <script>// 1. ANIMATION DU LOGO (ANIME.JS)
 
     // 1. ANIMATION LOGO

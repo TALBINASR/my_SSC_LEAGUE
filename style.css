@@ -9,7 +9,10 @@
 html {
     scroll-behavior: smooth;
 }
-
+/* Cache le burger sur PC par défaut */
+.burger {
+    display: none;
+}
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-dark);
@@ -62,13 +65,65 @@ body {
 
 /* --- HERO --- */
 .hero {
-    height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('TALBI.png') center/cover;
+    
+    /* Configuration de l'image */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('TALBI.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%; /* Force l'image à remplir exactement le conteneur */
+    
+    /* Hauteur dynamique */
+    width: 100%;
+    height: auto; 
+    min-height: 10px; /* Sécurité pour ne pas que le texte soit écrasé */
+    aspect-ratio: 1632 / 640; /* REMPLACE PAR LE RATIO DE TON IMAGE (ex: 1920/1080) */
+    
+    padding: 60px 20px;
+    box-sizing: border-box;
+}
+.btn-main {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 35px;
+    background-color: var(--primary-orange);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px; /* Forme pilule moderne */
+    border: 2px solid var(--primary-orange);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+    cursor: pointer;
+}
+
+/* Effet au survol */
+.btn-main:hover {
+    background-color: transparent;
+    color: var(--primary-orange);
+    transform: translateY(-3px); /* Soulèvement léger */
+    box-shadow: 0 8px 25px rgba(255, 107, 0, 0.5);
+}
+
+/* Effet au clic */
+.btn-main:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3);
+}
+/* Sur mobile, on laisse le texte respirer */
+@media (max-width: 600px) {
+    .hero {
+        aspect-ratio: auto; /* On laisse la hauteur s'adapter au texte sur petit écran */
+        height: auto;
+        background-size: cover;
+    }
 }
 
 /* --- SECTIONS GÉNÉRALES --- */
@@ -108,7 +163,7 @@ body {
 .index-list a { color: #ccc; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
 .index-list a:hover { color: var(--primary-orange); }
 
-/* --- BLOCS DE CODE (CORRIGÉ POUR MOBILE) --- */
+
 .code-container {
     background-color: #1e1e1e;
     border-radius: 8px;
@@ -164,10 +219,32 @@ body {
 
 /* --- GALERIE PHOTO --- */
 .photo-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 15px;
+    column-count: 2; /* Divise en 2 colonnes */
+    column-gap: 15px;
     margin: 20px 0;
+}
+
+.photo-gallery img {
+    width: 100%;
+    display: block;
+    margin-bottom: 15px; /* Espace vertical entre les images */
+    border-radius: 8px;
+    border: 2px solid var(--primary-orange);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: zoom-in;
+    break-inside: avoid; /* Empêche l'image de se couper entre deux colonnes */
+}
+
+.photo-gallery img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
+}
+
+/* Sur mobile, on passe à une seule colonne */
+@media (max-width: 600px) {
+    .photo-gallery {
+        column-count: 1;
+    }
 }
 
 .doc-img, .doc-img2 { 
@@ -178,63 +255,340 @@ body {
     object-fit: cover;
 }
 
-/* --- ADAPTATION MOBILE (CORRIGÉ) --- */
+/* --- ADAPTATION MOBILE UNIFIÉE --- */
 @media (max-width: 800px) {
-    .container { padding: 80px 5%; }
-
-    /* On cache la sidebar sur mobile pour libérer l'espace */
-    .doc-sidebar { display: none; } 
-    
-    .doc-layout {
-        display: block; /* Désactive le flex pour éviter les chevauchements */
+    /* 1. Reset Global Mobile */
+    .container { 
+        padding: 60px 5%; 
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    .doc-content {
+    /* 2. Fix Sections "À Propos" (Accueil) */
+    .about-item, .about-item.reverse { 
+        flex-direction: column !important; /* Force l'empilement */
+        text-align: center;
+        gap: 20px;
+    }
+
+    .about-text {
         width: 100%;
     }
 
-    /* Navbar Mobile */
-    .burger { 
-        display: block; 
-        cursor: pointer; 
-        z-index: 1100; 
-        position: relative;
+    .about-img {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
+    .about-img img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* 3. Fix Grille Projets (Accueil) */
+    .grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+        gap: 20px;
+    }
+
+    /* 4. Fix Navbar & Menu Burger */
     .nav-links {
         position: fixed;
         right: -100%;
         top: 0;
         height: 100vh;
-        width: 80%;
+        width: 75%;
         background: #1a1a1a;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: 0.5s;
+        transition: 0.5s ease;
         z-index: 1050;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
     }
 
-    .nav-links.active { right: 0; }
+    .nav-links.active { 
+        right: 0; 
+    }
+
+    .nav-links li { 
+        margin: 15px 0; 
+        margin-left: 0; /* Reset du margin desktop */
+    }
+
+    .burger { 
+        display: flex; /* Change display: block en flex pour centrer les barres */
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        cursor: pointer; 
+        z-index: 1100;
+        position: relative; /* Assure la visibilité au-dessus de la navbar */
+    }
+
+    .burger span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: white; /* Force la couleur blanche */
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    /* 5. Fix Documentation Layout */
+    .doc-layout {
+        display: block; /* Désactive le flex pour la doc sur mobile */
+    }
+
+    .doc-sidebar {
+        display: none; /* Cache l'index latéral sur mobile */
+    }
+
+    /* 6. Fix Images Global */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Fix spécifique pour le Hero sur mobile */
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    .logo {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+}
+/* --- ABOUT & IMAGES --- */
+.about-item { 
+    display: flex; 
+    flex-direction: column; /* Par défaut : empilé (Mobile) */
+    align-items: center; 
+    gap: 30px; 
+    margin-bottom: 60px; 
+}
+
+.about-text {
+    width: 100%;
+}
+
+.about-img {
+    width: 100%;
+}
+
+.about-img img { 
+    width: 100%; 
+    max-width: 400px; 
+    height: auto;
+    border-radius: 10px; 
+    border: 2px solid var(--primary-orange); 
+}
+
+/* --- VERSION PC (Largeur > 800px) --- */
+@media (min-width: 800px) {
+    .about-item { 
+        flex-direction: row; /* Côte à côte sur PC */
+    }
+    .about-item.reverse { 
+        flex-direction: row-reverse; 
+    }
+    .about-text {
+        width: 50%;
+    }
+    .about-img {
+        width: 50%;
+    }
+}
+/* --- GRILLE PROJETS --- */
+/* --- GRILLE PROJETS --- */
+.grid2 { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 30px; 
+    padding: 20px 0;
+}
+
+/* --- CARTE PROJET --- */
+.card2 {
+    background: var(--bg-card);
+    border-radius: 15px; 
+    overflow: hidden; /* Pour que l'image ne dépasse pas des coins arrondis */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animation "rebond" */
+    border-bottom: 4px solid var(--primary-orange);
+    width: 100%; 
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Effet de Survol (Hover) : La carte s'élève et brille */
+.card2:hover { 
+    transform: translateY(-12px) scale(1.02); 
+    background: #4a4a4a; /* Éclaircit légèrement le fond */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-bottom-width: 6px; /* Épaissit la ligne orange */
+}
+
+/* Effet de Pression (Active) : Comme si on appuyait physiquement dessus */
+.card2:active {
+    transform: translateY(-4px) scale(0.98); /* La carte s'enfonce légèrement */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    transition: 0.1s; /* Réponse instantanée au clic */
+}
+
+/* --- IMAGE DANS LA CARTE --- */
+.project-img2 { 
+    width: 100%; 
+    height: 220px; 
+    object-fit: cover; 
+    transition: 0.5s ease;
+}
+
+.card2:hover .project-img2 {
+    transform: scale(1.1); /* Zoom léger sur l'image au survol */
+}
+
+/* --- TEXTE DANS LA CARTE --- */
+.card2 h3 { 
+    padding: 20px 20px 5px 20px; 
+    margin: 0;
+    color: var(--primary-orange);
+    font-size: 1.4rem;
+}
+
+.card2 p { 
+    padding: 0 20px 25px 20px; 
+    margin: 0;
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- LIEN --- */
+.card-link2 { 
+    text-decoration: none; 
+    color: inherit; 
+    display: block; /* La zone cliquable prend toute la carte */
+}
+
+/* --- VERSION PC --- */
+@media (min-width: 800px) {
+    .grid2 { 
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    }
+}
+
+/* --- VERSION PC (Largeur > 800px) --- */
+@media (min-width: 800px) {
+    .container2 { padding: 100px 10%; }
+    .bg-light-grey2 { background-color: var(--light-grey); }
     
-    /* On empile les photos en une seule colonne */
-    .photo-gallery { grid-template-columns: 1fr; }
-
-    /* Réduction de la taille du logo */
-    .logo { font-size: 1.8rem; }
+    .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .card-link2 { text-decoration: none; color: inherit; }
+    .card2 {
+        background: #444; border-radius: 10px; overflow: hidden;
+        transition: 0.3s; border-bottom: 4px solid var(--primary-orange);
+    }
+    .card:hover { transform: translateY(-10px); }
+    .project-img2 { width: 100%; height: 200px; object-fit: cover; }
+    .card h3, .card p { padding: 0 20px; }
+    
+}
+/* --- FOOTER --- */
+/* --- FOOTER MODERNE --- */
+.main-footer {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 60px 0 30px 0;
+    margin-top: 100px;
+    border-top: 3px solid var(--primary-orange);
 }
 
-/* Back to Top */
-.back-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background-color: var(--primary-orange);
-    border-radius: 50%;
-    display: none;
-    z-index: 1000;
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 5%;
+    text-align: center;
 }
 
-footer { text-align: center; padding: 50px; background: #1a1a1a; margin-top: 50px; }
+.footer-logo {
+    font-family: "Lucida Console", monospace;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--primary-orange);
+    margin-bottom: 10px;
+}
+
+.footer-logo span {
+    color: white;
+}
+
+.footer-tagline {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+.footer-socials {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.footer-socials a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+    border-bottom: 1px solid transparent;
+}
+
+.footer-socials a:hover {
+    color: var(--primary-orange);
+    border-bottom: 1px solid var(--primary-orange);
+}
+
+.footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid #333;
+    font-size: 0.8rem;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.footer-socials i {
+    font-size: 1.2rem;
+    margin-right: 8px;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+.footer-socials a:hover i {
+    transform: translateY(-3px); /* L'icône saute légèrement au survol */
+    color: var(--primary-orange);
+}
+
+/* Optionnel : couleur spécifique pour chaque réseau au survol */
+.footer-socials a:hover .fa-instagram { color: #E1306C; }
+.footer-socials a:hover .fa-linkedin { color: #0077B5; }
+.footer-socials a:hover .fa-github { color: #fafafa; }
+/* Adaptation Mobile Footer */
+@media (max-width: 600px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-socials {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
